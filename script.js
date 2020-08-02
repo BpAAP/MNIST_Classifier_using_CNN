@@ -65,7 +65,7 @@ function render(grid_matrix){
                 ctx.fillRect(i*pixel_size+1,j*pixel_size+1,pixel_size-2,pixel_size-2);
             }
         }
-    }
+    }  
 }
 
 
