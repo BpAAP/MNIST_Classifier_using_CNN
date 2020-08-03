@@ -73,7 +73,7 @@ async function predict(grid_matrix){
 
     //Load model
    
-    const model = await tf.loadLayersModel('https://powerful-tidy-sidewalk.glitch.me/js_model/js_model/model.json','https://powerful-tidy-sidewalk.glitch.me/js_model/js_model/group1-shard1of1.bin');
+    const model = await tf.loadLayersModel('https://raw.githubusercontent.com/BpAAP/MNIST_Classifier_using_CNN/master/js_model/js_model/model.json');
     
     in_tensor = tf.tensor([grid_matrix]);
     
