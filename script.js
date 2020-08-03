@@ -49,7 +49,7 @@ function mouseDown(event){
 
 function mouseMove(event){
     if (is_drawing){
-        ctx.lineWidth = 30;
+        ctx.lineWidth = 25;
         ctx.lineCap = 'round';
         ctx.strokeStyle = 'black';
         canvas_props = canvas.getBoundingClientRect()
