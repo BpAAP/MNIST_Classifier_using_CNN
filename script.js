@@ -17,6 +17,7 @@ async function predict(array){
 
     const model = await tf.loadLayersModel('localstorage://models/model');
     in_tensor = tf.tensor([array]);
+    console.log(in_tensor.toString(false));
     //in_tensor = tf.reverse(in_tensor,1);
     //in_tensor = tf.reverse(in_tensor,2);
     const prediction =  model.predict(in_tensor);   
@@ -81,7 +82,7 @@ async function sample(e){
     for (i=0;i<28;i++){
         temparr = []
         for (j=0;j<28;j++){
-            temparr.push(0.0);
+            temparr.push(0.000000001);
         }
         array.push(temparr);
     }
@@ -112,7 +113,7 @@ async function sample(e){
             array[i][j] = (array[i][j] / arr_max);//*(-1)+1;
         }
     }
-    console.log(array);
+    
     
     //Just for testing
     canvas2 = document.getElementById("sampled");
