@@ -50,7 +50,7 @@ function mouseDown(event){
 
 function mouseMove(event){
     if (is_drawing){
-        ctx.lineWidth = 15;
+        ctx.lineWidth = 25;
         ctx.lineCap = 'round';
         ctx.strokeStyle = 'black';
         canvas_props = canvas.getBoundingClientRect()
@@ -115,18 +115,18 @@ async function sample(e){
     }
     
     
-    //Just for testing
-    canvas2 = document.getElementById("sampled");
-    const ctx2 = canvas2.getContext("2d");
-    for (i=0;i<28;i++){
-        for (j=0;j<28;j++){
-            ctx2.fillStyle = `rgb(
-                ${255-array[i][j]*255},
-                ${255-array[i][j]*255},
-                ${255-array[i][j]*255})`;
-            ctx2.fillRect(j*10,i*10,10,10);
-        }
-    }
+    // //Just for testing
+    // canvas2 = document.getElementById("sampled");
+    // const ctx2 = canvas2.getContext("2d");
+    // for (i=0;i<28;i++){
+    //     for (j=0;j<28;j++){
+    //         ctx2.fillStyle = `rgb(
+    //             ${255-array[i][j]*255},
+    //             ${255-array[i][j]*255},
+    //             ${255-array[i][j]*255})`;
+    //         ctx2.fillRect(j*10,i*10,10,10);
+    //     }
+    // }
 
 
     await predict(array);
