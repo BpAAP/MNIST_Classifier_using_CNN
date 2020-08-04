@@ -3,8 +3,8 @@ is_drawing = false;
 scale_factor = 8/12;
 
 async function load_model(){
-    const model = await tf.loadLayersModel('https://raw.githubusercontent.com/BpAAP/MNIST_Classifier_using_CNN/master/js_model/js_model/model.json')
-    //sessionStorage.setItem('model',JSON.stringify(model));
+    const model = await tf.loadLayersModel('https://raw.githubusercontent.com/BpAAP/MNIST_Classifier_using_CNN/master/js_model/js_model/model.json');
+    
     await model.save('localstorage://models/model');
     model_loaded = true;
     console.log("Model has successfully downloaded and saved.");
@@ -15,17 +15,14 @@ async function predict(array){
         await load_model();
     }
 
+    console.log("Making prediction...");
     const model = await tf.loadLayersModel('localstorage://models/model');
-    in_tensor = tf.tensor([array]);
-    console.log(in_tensor.toString(false));
-    //in_tensor = tf.reverse(in_tensor,1);
-    //in_tensor = tf.reverse(in_tensor,2);
+    in_tensor = tf.tensor([array]);    
     const prediction =  model.predict(in_tensor);   
-    console.log(prediction.toString()); 
     const values = prediction.argMax(-1).dataSync();
     const arr = Array.from(values);
-    console.log(arr[0]);
-    predict_txt.textContent = (arr[0]).toString();
+    predict_txt.textContent = ("Looks like his is a/an: "+arr[0]).toString();
+    console.log("Prediction made and displayed.");
 
 }
 
@@ -33,9 +30,7 @@ const canvas = document.getElementById("imageCanvas");
 const ctx = canvas.getContext("2d");
 
 const predict_txt = document.getElementById("prediction_text");
-
 const predict_btn = document.getElementById("predict_btn");
-
 const reset_btn = document.getElementById("reset_btn");
 
 function mouseDown(event){
@@ -50,7 +45,8 @@ function mouseDown(event){
 
 function mouseMove(event){
     if (is_drawing){
-        ctx.lineWidth = 25;
+
+        ctx.lineWidth = canvas.width / 28;
         ctx.lineCap = 'round';
         ctx.strokeStyle = 'black';
         canvas_props = canvas.getBoundingClientRect()
@@ -67,7 +63,6 @@ function mouseUp(event){
 }
 
 function resize(){
-    
     const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
     const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
     min_dim = Math.min(vw,vh)*scale_factor;
@@ -76,6 +71,9 @@ function resize(){
 }
 
 async function sample(e){
+    predict_txt.textContent = "...Working...";
+    console.log("Predict button pressed, sampling canvas...");
+
     cell_size = canvas.height / 28;
     
     array = [];
@@ -114,21 +112,6 @@ async function sample(e){
         }
     }
     
-    
-    // //Just for testing
-    // canvas2 = document.getElementById("sampled");
-    // const ctx2 = canvas2.getContext("2d");
-    // for (i=0;i<28;i++){
-    //     for (j=0;j<28;j++){
-    //         ctx2.fillStyle = `rgb(
-    //             ${255-array[i][j]*255},
-    //             ${255-array[i][j]*255},
-    //             ${255-array[i][j]*255})`;
-    //         ctx2.fillRect(j*10,i*10,10,10);
-    //     }
-    // }
-
-
     await predict(array);
 }
 
@@ -140,12 +123,10 @@ canvas.addEventListener('mousedown',mouseDown,false);
 canvas.addEventListener('mousemove',mouseMove,false);
 canvas.addEventListener('mouseup',mouseUp,false);
 
-
+document.body.addEventListener('mouseup',mouseUp,false);
 
 predict_btn.addEventListener('click',sample,false);
 reset_btn.addEventListener('click',reset,false);
 
 load_model();
 resize();
-
-
