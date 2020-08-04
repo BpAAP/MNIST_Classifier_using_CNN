@@ -10,7 +10,7 @@ This repository is mirrored in a Glitch project, you can try it out at:
 https://powerful-tidy-sidewalk.glitch.me/app.html
 
 ## Training
-The model used in the demo was trained with Keras in Python on Google's free Collab platform using GPU acceleration. You can view and run the annotated code here:
+The model used in the demo was trained with Keras in Python on Google's free Colab platform using GPU acceleration. You can view and run the annotated code here:
 https://colab.research.google.com/drive/1xBrYECOvC2qaEEFqr2MS9ELaw4OpKvOP?usp=sharing
 
 ## JavaScript App
